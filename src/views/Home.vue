@@ -1,14 +1,17 @@
 <template>
   <div>
     <h1 class="text-center">Hello home page</h1>
-    <h1 class="text-center">Test data : {{ getData }}</h1>
-    <Table />
+    <div class="maxW">
+      <Graph />
+      <Table />
+    </div>
   </div>
 </template>
 
 <script>
-import Table from "../components/Table";
 // import axios from "axios";
+import Graph from "../components/Graph";
+import Table from "../components/Table";
 
 export default {
   name: "Home",
@@ -19,6 +22,7 @@ export default {
   },
   components: {
     Table,
+    Graph,
   },
   // created() {
   //   axios
@@ -30,4 +34,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.maxW {
+  max-width: 1000px;
+  margin: auto;
+}
+</style>
