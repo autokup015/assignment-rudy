@@ -25,6 +25,9 @@ export default {
         xaxis: {
           categories: [10, 20, 30, 40, 50],
         },
+        dataLabels: {
+          enabled: false,
+        },
       },
       series: [
         {
