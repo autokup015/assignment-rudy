@@ -6,6 +6,11 @@ import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
+
 new Vue({
   router,
   store,

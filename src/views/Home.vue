@@ -10,18 +10,6 @@
         </v-row>
       </div>
       <br />
-      <div class="d-flex justify-center">
-        <v-alert
-          border="right"
-          colored-border
-          type="error"
-          elevation="2"
-          width="150"
-          :value="alert"
-        >
-          No data
-        </v-alert>
-      </div>
       <Graph
         :Cases="getCases"
         :Death="getDeaths"
@@ -33,7 +21,6 @@
         :Death="getDeaths"
         :Recovered="getRecovered"
         :day="dates"
-        @toggle="toggle"
       />
     </div>
   </div>
@@ -55,19 +42,22 @@ export default {
       getRecovered: [],
       dates: [],
       menu: false,
-      // ----
-      alert: false,
     };
   },
+
   components: {
     Table,
     Graph,
   },
+
   created() {
     axios
       .get("https://disease.sh/v3/covid-19/historical/all")
       .then((result) => {
-        // ---------------------
+        //
+        // Set cases value
+        //
+
         let arrCases = [];
         for (const value in result.data.cases) {
           let ob = {
@@ -79,7 +69,9 @@ export default {
 
         this.getCases = arrCases;
 
-        // ---------------------
+        //
+        // Set Death value
+        //
 
         let arrDeath = [];
         for (const value in result.data.deaths) {
@@ -92,7 +84,9 @@ export default {
 
         this.getDeaths = arrDeath;
 
-        // ---------------------
+        //
+        // Set Recovered value
+        //
 
         let arrRecovered = [];
         for (const value in result.data.recovered) {
@@ -106,13 +100,11 @@ export default {
         this.getRecovered = arrRecovered;
       });
   },
+
   methods: {
     clear() {
       this.dates = [];
       this.alert = false;
-    },
-    toggle(value) {
-      this.alert = value;
     },
   },
 };
