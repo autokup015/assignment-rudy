@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="maxW">
     <apexchart width="1000" type="bar" :options="chartOptions" :series="series">
     </apexchart>
   </div>
@@ -197,3 +197,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.maxW {
+  max-width: 1000px;
+  margin: auto;
+  overflow-x: scroll;
+}
+</style>
