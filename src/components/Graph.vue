@@ -202,5 +202,6 @@ export default {
   max-width: 1000px;
   margin: auto;
   overflow-x: scroll;
+  overflow-y: hidden;
 }
 </style>
