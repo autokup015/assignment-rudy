@@ -1,76 +1,123 @@
 <template>
   <div class="maxW">
-    <v-simple-table>
-      <template class="maxW">
-        <thead>
-          <tr>
-            <th class="text-left">
-              Name
-            </th>
-            <th class="text-left">
-              Calories
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in desserts" :key="item.name">
-            <td>{{ item.name }}</td>
-            <td>{{ item.calories }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <table style="width:100%">
+      <tr>
+        <th class="text-center">
+          Days
+        </th>
+        <th class="text-center">
+          Cases
+        </th>
+        <th class="text-center">
+          Deaths
+        </th>
+        <th class="text-center">
+          Recovered
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div v-for="(item, index) in FinalCases" :key="index">
+            <p class="text-center">{{ item.day | day }}</p>
+          </div>
+        </td>
+        <td>
+          <div v-for="(item, index) in FinalCases" :key="index">
+            <p class="text-center">{{ item.cases }}</p>
+          </div>
+        </td>
+        <td>
+          <div v-for="(item, index) in FinalDeath" :key="index">
+            <p class="text-center">{{ item.deaths }}</p>
+          </div>
+        </td>
+        <td>
+          <div v-for="(item, index) in FinalRecovered" :key="index">
+            <p class="text-center">{{ item.recovered }}</p>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "Table",
-  data() {
-    return {
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-        },
-      ],
-    };
+  props: {
+    Cases: [],
+    Death: [],
+    Recovered: [],
+    day: [],
+  },
+
+  computed: {
+    FinalCases() {
+      let arrCases = this.Cases.filter((data) => {
+        for (let i = 0; i < this.day.length; i++) {
+          const ele = moment(this.day[i]).format("M/DD/YY");
+          if (data.day == ele) {
+            return data;
+          }
+        }
+      });
+
+      if (arrCases.length == 0) {
+   
+        return this.Cases;
+      } else {
+    
+        return arrCases;
+      }
+    },
+
+    FinalDeath() {
+      let arrDeath = this.Death.filter((data) => {
+        for (let i = 0; i < this.day.length; i++) {
+          const ele = moment(this.day[i]).format("M/DD/YY");
+          if (data.day == ele) {
+            return data;
+          }
+        }
+      });
+      if (arrDeath.length == 0) {
+        return this.Death;
+      } else {
+        return arrDeath;
+      }
+    },
+
+    FinalRecovered() {
+      let arrRecovered = this.Recovered.filter((data) => {
+        for (let i = 0; i < this.day.length; i++) {
+          const ele = moment(this.day[i]).format("M/DD/YY");
+          if (data.day == ele) {
+            return data;
+          }
+        }
+      });
+
+      if (arrRecovered.length == 0) {
+        return this.Recovered;
+      } else {
+        return arrRecovered;
+      }
+    },
+  },
+  filters: {
+    day(value) {
+      return moment(value).format("DD/M/YY");
+    },
   },
 };
 </script>
+<style scoped>
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
